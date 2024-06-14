@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3 class="mt-4 mb-4">Log Pembaharuan Data Barang</h3>
+
+
+    <!-- Tabel untuk log pembaruan data (update) -->
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Waktu</th>
+                    <th>ID Log</th>
+                    <th>Nama Barang </th>
+                    <th>Stok Baru</th>
+                    <th>Stok Lama</th>
+                    <th>Harga Baru</th>
+                    <th>Harga Lama</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log_entry in log_data %}
+                <tr>
+                    <td>{{ log_entry.timestamp }}</td>
+                    <td>Log-{{ log_entry.id }}</td>
+                    <td>{{ log_entry.name }}</td>
+                    <td>{{ log_entry.stok_baru }}</td>
+                    <td>{{ log_entry.stok_lama }}</td>
+                    <td>Rp. {{ log_entry.harga_baru }}</td>
+                    <td>Rp. {{ log_entry.harga_lama }}</td>
+                    <td>
+                        <a href="{{ url_for('delete_log', id=log_entry.id) }}" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" class="btn btn-sm btn-danger">Hapus</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="{{ url_for('index') }}">Kembali</a>
+</div>
+{% endblock %}
